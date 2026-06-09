@@ -3,319 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Настольный теннис — найти партнёра в ЖК</title>
+    <title>Пинг-понг в ЖК | Найти партнёра</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%);
+            background: linear-gradient(135deg, #0b2b1f 0%, #1a4d2e 100%);
             min-height: 100vh;
-            padding: 2rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* карточка-шапка */
-        .hero {
-            background: rgba(255,255,240,0.95);
-            backdrop-filter: blur(2px);
-            border-radius: 48px;
-            padding: 1.8rem 1.5rem;
-            margin-bottom: 2rem;
+        .card {
+            background: white;
+            border-radius: 40px;
+            padding: 40px 24px;
+            max-width: 450px;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,215,0,0.5);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
         }
 
-        .hero h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #2c5e2e, #f5b042);
+        /* эмодзи-мяч */
+        .ball {
+            font-size: 70px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        /* заголовок */
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e6b3b, #d4a017);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px;
         }
 
-        .hero .badge {
-            background: #d4af37;
-            color: #1e3a2f;
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            margin: 0.5rem 0;
-        }
-
-        .hero p {
-            color: #2d3e2b;
+        /* текст приветствия */
+        .greeting {
+            font-size: 18px;
+            line-height: 1.45;
+            color: #2c3e2b;
+            background: #f0f7e6;
+            padding: 18px;
+            border-radius: 28px;
+            margin-bottom: 32px;
             font-weight: 500;
-            margin-top: 0.5rem;
         }
 
-        /* сетка чатов */
-        .chats-grid {
+        /* контейнер для кнопок */
+        .buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 16px;
         }
 
-        .chat-card {
-            background: white;
-            border-radius: 28px;
-            padding: 1.2rem 1.5rem;
+        /* общий стиль кнопок */
+        .btn {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-left: 10px solid;
-        }
-
-        .chat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-        }
-
-        /* цвета платформ */
-        .chat-card.telegram { border-left-color: #26A5E4; }
-        .chat-card.whatsapp { border-left-color: #25D366; }
-        .chat-card.viber   { border-left-color: #7360F2; }
-        .chat-card.discord { border-left-color: #5865F2; }
-        .chat-card.other   { border-left-color: #f39c12; }
-
-        .chat-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 2;
-            min-width: 160px;
-        }
-
-        .emoji-big {
-            font-size: 2.8rem;
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
-        }
-
-        .chat-details h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.2rem;
-            color: #1f2f1c;
-        }
-
-        .chat-details p {
-            color: #4a5b44;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .member-count {
-            background: #eff3e8;
-            border-radius: 40px;
-            padding: 0.2rem 0.7rem;
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: #2d6a4f;
-        }
-
-        .join-btn {
-            background: #111;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 20px;
             border-radius: 60px;
+            font-size: 20px;
             font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             text-decoration: none;
+            transition: transform 0.15s, opacity 0.15s;
+            border: none;
+            cursor: pointer;
         }
 
-        .join-btn:hover {
-            transform: scale(1.02);
-            filter: brightness(1.05);
-            gap: 10px;
+        .btn:active {
+            transform: scale(0.97);
         }
 
-        .telegram .join-btn { background: #26A5E4; }
-        .whatsapp .join-btn { background: #25D366; }
-        .viber .join-btn   { background: #7360F2; }
-        .discord .join-btn { background: #5865F2; }
-        .other .join-btn   { background: #e67e22; }
-
-        .footer-note {
-            margin-top: 3rem;
-            text-align: center;
-            color: #e9f5db;
-            font-size: 0.8rem;
-            background: rgba(0,0,0,0.3);
-            padding: 1rem;
-            border-radius: 60px;
-            backdrop-filter: blur(4px);
+        /* телеграм */
+        .btn-tg {
+            background: #26A5E4;
+            color: white;
+            box-shadow: 0 6px 0 #1a6e9b;
         }
 
-        @media (max-width: 550px) {
-            .chat-card {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
+        /* вконтакте */
+        .btn-vk {
+            background: #0077FF;
+            color: white;
+            box-shadow: 0 6px 0 #0055b3;
+        }
+
+        .btn span:first-child {
+            font-size: 28px;
+        }
+
+        /* мелкий текст под кнопками */
+        .hint {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #6e8b6a;
+            background: #eef4ea;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        /* для очень маленьких телефонов (320px) */
+        @media (max-width: 450px) {
+            .card {
+                padding: 30px 18px;
             }
-            .chat-info {
-                justify-content: center;
+            .greeting {
+                font-size: 16px;
+                padding: 14px;
             }
-            .join-btn {
-                justify-content: center;
+            .btn {
+                padding: 14px 16px;
+                font-size: 18px;
             }
-            .hero h1 { font-size: 1.8rem; }
+            .btn span:first-child {
+                font-size: 24px;
+            }
+            h1 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="hero">
-        <h1>🏓 Пинг-понг • ЖК «Ваш Дом»</h1>
-        <div class="badge">⚡ ИЩЕШЬ СОПЕРНИКА?</div>
-        <p>Присоединяйся к чатам — договаривайся о партиях в подвале / коворкинге / у стола во дворе ЖК</p>
+<div class="card">
+    <span class="ball">🏓</span>
+    <h1>Настольный теннис<br>в нашем ЖК</h1>
+
+    <div class="greeting">
+        👋 Привет! Создал чат для нашего ЖК, чтобы было с кем поиграть вечером в пинг-понг.<br>
+        Присоединяйся — выбирай любой мессенджер ⬇️
     </div>
 
-    <div class="chats-grid" id="chatsContainer">
-        <!-- сюда будут динамически добавляться карточки чатов -->
+    <div class="buttons">
+        <!-- ⚠️ ЗАМЕНИ ССЫЛКИ НА ТВОИ РЕАЛЬНЫЕ -->
+        <a href="https://t.me/+ТВОЯ_ССЫЛКА_ТЕЛЕГРАМ" class="btn btn-tg" target="_blank" rel="noopener noreferrer">
+            <span>📱</span> <span>Telegram чат</span>
+        </a>
+
+        <a href="https://vk.me/join/ТВОЯ_ССЫЛКА_ВК" class="btn btn-vk" target="_blank" rel="noopener noreferrer">
+            <span>📘</span> <span>ВКонтакте чат</span>
+        </a>
+        <!-- ↑↑↑ ЗАМЕНИ ССЫЛКИ ↑↑↑ -->
     </div>
-    <div class="footer-note">
-        🏓 Удачной игры! Добавь свою ссылку — напиши соседу @admin_zhk<br>
-        Не забудь указать корпус / время / уровень игры
+
+    <div class="hint">
+        🏓 Жми на кнопку → переходи в чат → договаривайся об игре
     </div>
 </div>
 
-<script>
-    // ⚡⚡⚡ НАСТРОЙКА ЧАТОВ — ЗАМЕНИ ССЫЛКИ НА РЕАЛЬНЫЕ ⚡⚡⚡
-    const chats = [
-        {
-            name: "🏓 Основной чат ЖК",
-            platform: "telegram",
-            platformLabel: "Telegram",
-            emoji: "📱",
-            link: "https://t.me/+ваш_телеграм_чат",   // ← сюда ссылку на Telegram
-            members: "≈ 45 участников",
-            description: "Договориться о времени, общий"
-        },
-        {
-            name: "Быстрые игры • сегодня",
-            platform: "whatsapp",
-            platformLabel: "WhatsApp",
-            emoji: "⚡",
-            link: "https://chat.whatsapp.com/ваш_код_приглашения", // ← ссылка WhatsApp
-            members: "≈ 22 игрока",
-            description: "Кто сейчас хочет погонять мяч?"
-        },
-        {
-            name: "Вечерняя лига",
-            platform: "viber",
-            platformLabel: "Viber",
-            emoji: "🌙",
-            link: "viber://pa?chatURI=ваш_uri",       // ← ссылка Viber
-            members: "≈ 18 чел",
-            description: "20:00 – турнирчики"
-        },
-        {
-            name: "Ракетки / обмен опытом",
-            platform: "discord",
-            platformLabel: "Discord",
-            emoji: "🎙️",
-            link: "https://discord.gg/ваш_инвайт",    // ← ссылка Discord
-            members: "≈ 30",
-            description: "Обсуждение техники, инвентарь"
-        },
-        {
-            name: "Только свой ЖК (двор/подвал)",
-            platform: "other",
-            platformLabel: "VK / чат дома",
-            emoji: "🏢",
-            link: "https://vk.me/join/ваш_чат",       // ← можно VK, Signal и т.д.
-            members: "≈ 60 жителей",
-            description: "Общий домовой чат — пинг-понг тема"
-        }
-    ];
-
-    // функция для получения CSS-класса платформы
-    function getPlatformClass(platform) {
-        switch(platform) {
-            case 'telegram': return 'telegram';
-            case 'whatsapp': return 'whatsapp';
-            case 'viber': return 'viber';
-            case 'discord': return 'discord';
-            default: return 'other';
-        }
-    }
-
-    // рендер карточек
-    function renderChats() {
-        const container = document.getElementById('chatsContainer');
-        if (!container) return;
-
-        let html = '';
-        for (let chat of chats) {
-            const platformClass = getPlatformClass(chat.platform);
-            // безопасно обрабатываем ссылку
-            const linkHref = chat.link || '#';
-            const targetAttr = (chat.link && (chat.link.startsWith('http') || chat.link.startsWith('viber://') || chat.link.startsWith('https://'))) ? 'target="_blank" rel="noopener noreferrer"' : '';
-
-            html += `
-                <div class="chat-card ${platformClass}">
-                    <div class="chat-info">
-                        <div class="emoji-big">${chat.emoji || '🏓'}</div>
-                        <div class="chat-details">
-                            <h3>${escapeHtml(chat.name)}</h3>
-                            <p>
-                                <span class="member-count">${escapeHtml(chat.members)}</span>
-                                <span>• ${escapeHtml(chat.platformLabel)}</span>
-                                <span>• ${escapeHtml(chat.description)}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <a href="${linkHref}" class="join-btn" ${targetAttr}>
-                        ➕ Вступить → 
-                    </a>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-    }
-
-    // простая защита от XSS
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-
-    // запускаем рендер
-    renderChats();
-</script>
 </body>
 </html>
