@@ -15,7 +15,7 @@
             background: linear-gradient(135deg, #0b2b1f 0%, #1a4d2e 100%);
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start;  /* ← прижимаем к верху */
             justify-content: center;
             padding: 20px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -31,14 +31,12 @@
             box-shadow: 0 25px 45px rgba(0,0,0,0.3);
         }
 
-        /* эмодзи-мяч */
         .ball {
             font-size: 70px;
             display: block;
             margin-bottom: 16px;
         }
 
-        /* заголовок */
         h1 {
             font-size: 32px;
             font-weight: 800;
@@ -49,7 +47,6 @@
             margin-bottom: 20px;
         }
 
-        /* текст приветствия */
         .greeting {
             font-size: 18px;
             line-height: 1.45;
@@ -61,14 +58,12 @@
             font-weight: 500;
         }
 
-        /* контейнер для кнопок */
         .buttons {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        /* общий стиль кнопок */
         .btn {
             display: flex;
             align-items: center;
@@ -79,8 +74,7 @@
             font-size: 20px;
             font-weight: bold;
             text-decoration: none;
-            transition: transform 0.15s, opacity 0.15s;
-            border: none;
+            transition: transform 0.15s;
             cursor: pointer;
         }
 
@@ -88,25 +82,18 @@
             transform: scale(0.97);
         }
 
-        /* телеграм */
         .btn-tg {
             background: #26A5E4;
             color: white;
             box-shadow: 0 6px 0 #1a6e9b;
         }
 
-        /* вконтакте */
         .btn-vk {
             background: #0077FF;
             color: white;
             box-shadow: 0 6px 0 #0055b3;
         }
 
-        .btn span:first-child {
-            font-size: 28px;
-        }
-
-        /* мелкий текст под кнопками */
         .hint {
             margin-top: 28px;
             font-size: 13px;
@@ -117,10 +104,9 @@
             border-radius: 50px;
         }
 
-        /* для очень маленьких телефонов (320px) */
         @media (max-width: 450px) {
             .card {
-                padding: 30px 18px;
+                padding: 20px 18px;
             }
             .greeting {
                 font-size: 16px;
@@ -129,9 +115,6 @@
             .btn {
                 padding: 14px 16px;
                 font-size: 18px;
-            }
-            .btn span:first-child {
-                font-size: 24px;
             }
             h1 {
                 font-size: 28px;
@@ -154,7 +137,6 @@
     </div>
 
     <div class="buttons">
-        <!-- ⚠️ ЗАМЕНИ ССЫЛКИ НА ТВОИ РЕАЛЬНЫЕ -->
         <a href="https://t.me/+g692ceqtNAk0ODgy" class="btn btn-tg" target="_blank" rel="noopener noreferrer">
             <span>Telegram</span>
         </a>
@@ -162,7 +144,6 @@
         <a href="https://max.ru/join/8G2YQeMoYsJm-heTs00LtAGmZ560_pfscj9INNUuUU0" class="btn btn-vk" target="_blank" rel="noopener noreferrer">
             <span>МАХ</span>
         </a>
-        <!-- ↑↑↑ ЗАМЕНИ ССЫЛКИ ↑↑↑ -->
     </div>
 
     <div class="hint">
